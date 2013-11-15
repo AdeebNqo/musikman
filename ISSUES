@@ -9,3 +9,5 @@
 
 4. There is no application configuration system. Settings such as default music folder need to be able
 to be set by the user
+
+5. Need to monitor filesystem, as soon as I get pyinotify
