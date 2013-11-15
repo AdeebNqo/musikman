@@ -18,8 +18,8 @@ def main():
 		current_file = fs.nextfile()
 		if (current_file!=None):
 			current_song = song(current_file)
-			artist = (current_song.get_artist()).strip()
-			album = current_song.get_album().strip()
-			fs.copy(current_file,"/tmp/.musikMan", artist, album)
+			artist = (current_song.get_artist())
+			album = current_song.get_album()
+			fs.copy(current_file,"/tmp/.musikMan", artist, album, fs.file_index)
 if __name__=="__main__":
 	main()

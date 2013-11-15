@@ -1,0 +1,11 @@
+1. Cannnot file when artist tag contains "ft"
+
+2. Does not handle artist with somewhat varying names e.g
+	i) Bone thugs n harmony
+	ii) Bone thugs n' harmony
+	iii) Bone thugs-N-harmony
+
+3. Application needs to log files which have no been classified due to errors.
+
+4. There is no application configuration system. Settings such as default music folder need to be able
+to be set by the user
