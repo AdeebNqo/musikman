@@ -19,53 +19,68 @@ class comparor(object):
 	def __init__(self):
 		self.similarity = 0
 	#
-	# Method for setting the left hand artist
-	# -Used when comparing artist with multiple others-
-	def set_leftartist(self,artist0):
-		self.artist0 = artist0
+	# Method for setting the left hand val
+	# -Used when comparing val with multiple others-
+	def set_leftartist(self,val0):
+		self.val0 = val0
 	#
-	# Method for comparing artist1 one with set artist
-	# - Used when comparing artist with multiple others-
-	def compare(artist1):
-		compare(self.artist0, artist1)
+	# Method for comparing val one with set artist
+	# - Used when comparing val with multiple others-
+	def compare(val1):
+		compare(self.val0, val1)
 	#
-	# Method for comparing two artists
+	# Method for comparing two vals
 	#
-	def compare(self, artist0, artist1):
+	def compare(self, val0, val1):
 		self.similarity = 0
 		#
 		# Comparing artists
 		#
-		val0 = value(artist0)
-		val1 = value(artist1)
+		tmpval0 = value(val0)
+		tmpval1 = value(val1)
 		
-		atoken = val0.next_token()
-		btoken = val1.next_token()
+		atoken = tmpval0.next_token()
+		btoken = tmpval1.next_token()
 		num=0
 		while(1):
 			if (atoken!=" " and btoken!=" "):
 				#we can compare
 				if (atoken==btoken):
 					num=num+1
+					if (tmpval0.has_nexttoken()):
+						atoken=tmpval0.next_token()
+					else:
+						break
+					if (tmpval1.has_nexttoken()):
+						btoken = tmpval1.next_token()
+					else:
+						break
 				else:
 					break
 			else:
 				#Need to ignore token
 				if (atoken==" "):
-					if (val0.has_nexttoken()):
-						atoken = val0.next_token()
+					if (tmpval0.has_nexttoken()):
+						atoken = tmpval0.next_token()
 					else:
 						break
 				elif (btoken==" "):
-					if (val1.has_nexttoken()):
-						btoken = val1.next_token()
+					if (tmpval1.has_nexttoken()):
+						btoken = tmpval1.next_token()
 					else:
 						break
-		length = min(val0.length, val1.length)
+		length = min(tmpval0.length, tmpval1.length)
+		print("length: "+str(length))
+		print("num: "+str(num))
 		if (num==0):
 			return 0
 		else:
 			num = 1.0 * num
-			self.similarity = length/num
-			return self.similarity
-	def 
+			self.similarity = num/length
+			return self.similarity*100
+def main():
+	print("Hello World")
+	com = comparor()
+	print(com.compare("Blackcoffee","Black Coffee"))
+if __name__=="__main__":
+	main()
