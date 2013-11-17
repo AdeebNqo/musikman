@@ -1,4 +1,4 @@
-1. Cannnot file when artist tag contains "ft"
+1. Cannnot process file correctly when artist tag contains "ft"
 
 2. Does not handle artist with somewhat varying names e.g
 	i) Bone thugs n harmony

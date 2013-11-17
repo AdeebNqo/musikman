@@ -21,5 +21,6 @@ def main():
 			artist = (current_song.get_artist())
 			album = current_song.get_album()
 			fs.copy(current_file,"/tmp/.musikMan", artist, album, fs.file_index)
+	fs.release()
 if __name__=="__main__":
 	main()

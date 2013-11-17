@@ -1,5 +1,6 @@
 import os
 import shutil
+import logger
 class song(object):
 	def __init__(self, path):
 		try:
@@ -37,6 +38,7 @@ class filesystem(object):
 		self.clearfile_stack=[]
 		self.recurse(topdir)
 		self.filestack_size = len(self.file_stack)
+		self.log = logger.logger()
 	def recurse(self, directory):
 		for dirpath,dirnames,filenames in os.walk(directory):
 			self.folder_stack.append(dirpath)
@@ -85,6 +87,13 @@ class filesystem(object):
 				print(error0)
 		except TypeError as error:
 			print(error)
-				
+
 	def move(self, path, destpath, artist, album):
 		print("Moving...")
+	def get_filename(self,path):
+		print("get")
+	#
+	# Method for releasing all acquired resources, cleaning up, etc
+	#
+	def release(self):
+		self.log.close()
