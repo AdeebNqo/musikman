@@ -64,7 +64,9 @@ class filesystem(object):
 		artist_path = destpath+"/"+artist
 		album_path = destpath+"/"+artist+"/"+album
 		try:
+			print("before 1st if")
 			if (os.path.exists(artist_path)):
+				print("after 1st if")
 				#Artist dir exists
 				if (os.path.exists(album_path)==False):
 					#album folder does not exist
