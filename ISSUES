@@ -11,3 +11,6 @@
 to be set by the user
 
 5. Need to monitor filesystem, as soon as I get pyinotify
+
+6. We need rhythmbox plugin to monitor "similar musicians", basically -- it should be in charge of
+maintance of id2v1 tags
