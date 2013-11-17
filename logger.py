@@ -16,6 +16,6 @@ class logger(object):
 		self.session_errors.append(issue)
 	def close(self):
 		f = open(self.log_file,"w")
-		for issue in session_errors:
-			f.write(time.ctime()+" File: "+issue.File+" Error: "+issue.error+"\n")
+		for issue in self.session_errors:
+			f.write(time.ctime()+" File: "+issue.File+" Error: "+issue.error.__str__()+"\n")
 		f.close()

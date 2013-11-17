@@ -84,9 +84,11 @@ class filesystem(object):
 				shutil.copy(srcpath, album_path)
 				print("copied!")
 			except IOError as error0:
-				print(error0)
+				print("Copy failed")
+				self.log.report_error(srcpath, error0)
 		except TypeError as error:
-			print(error)
+			print("Copy failed!")
+			self.log.report_error(srcpath,error)
 
 	def move(self, path, destpath, artist, album):
 		print("Moving...")
