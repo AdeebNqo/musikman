@@ -10,9 +10,7 @@ class song(object):
 			if (tag=="TAG"):
 				self.title = f.read(30)
 				self.artist = f.read(30)
-				self.artist = self.artist.strip()
 				self.album = f.read(30)
-				self.album = self.album.strip()
 				self.year = f.read(4)
 			else:
 				self.title = "Unknown"
@@ -64,10 +62,7 @@ class filesystem(object):
 		artist_path = destpath+"/"+artist
 		album_path = destpath+"/"+artist+"/"+album
 		try:
-			print("before 1st if")
-			print(artist_path)
-			if (os.path.exists(str(artist_path))==True):
-				print("after 1st if")
+			if (os.path.exists(artist_path)==True):
 				#Artist dir exists
 				if (os.path.exists(album_path)==False):
 					#album folder does not exist
@@ -92,13 +87,9 @@ class filesystem(object):
 		except TypeError as error:
 			print("Copy failed!")
 			self.log.report_error(srcpath,error)
-			break;
 
 	def move(self, path, destpath, artist, album):
 		print("Moving...")
-	def get_filename(self,path):
-		
-		print("get")
 	#
 	# Method for releasing all acquired resources, cleaning up, etc
 	#
