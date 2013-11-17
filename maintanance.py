@@ -1,5 +1,6 @@
 class value(object):
 	def __init__(self,name):
+		name = name.upper()
 		self.length = len(name)
 		self.stack = self.__split__(name)
 		self.stack.reverse()
@@ -14,6 +15,7 @@ class value(object):
 		result = []
 		for i in name:
 			result.append(i)
+		print(result)
 		return result
 class comparor(object):
 	def __init__(self):
@@ -43,7 +45,7 @@ class comparor(object):
 		btoken = tmpval1.next_token()
 		num=0
 		while(1):
-			if (atoken!=" " and btoken!=" "):
+			if (atoken!=' ' and btoken!=' '):
 				#we can compare
 				if (atoken==btoken):
 					num=num+1
@@ -59,12 +61,12 @@ class comparor(object):
 					break
 			else:
 				#Need to ignore token
-				if (atoken==" "):
+				if (atoken==' '):
 					if (tmpval0.has_nexttoken()):
 						atoken = tmpval0.next_token()
 					else:
 						break
-				elif (btoken==" "):
+				elif (btoken==' '):
 					if (tmpval1.has_nexttoken()):
 						btoken = tmpval1.next_token()
 					else:
@@ -81,6 +83,6 @@ class comparor(object):
 def main():
 	print("Hello World")
 	com = comparor()
-	print(com.compare("Blackcoffee","Black Coffee"))
+	print(com.compare("Blackcoffee","Black Coffee,"))
 if __name__=="__main__":
 	main()
