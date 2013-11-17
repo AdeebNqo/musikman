@@ -42,10 +42,10 @@ class filesystem(object):
 		self.folder_stack = []
 		self.file_stack = []
 		self.clearfile_stack=[]
-		self.recurse(topdir)
+		self.capture_files(topdir)
 		self.filestack_size = len(self.file_stack)
 		self.log = logger.logger()
-	def recurse(self, directory):
+	def capture_files(self, directory):
 		for dirpath,dirnames,filenames in os.walk(directory):
 			self.folder_stack.append(dirpath)
 			for File in filenames:
@@ -62,7 +62,10 @@ class filesystem(object):
 			return False
 		else:
 			return True
-	def copy(self, srcpath, destpath, artist, album, fileindex):
+	#
+	# Method for preparing and copying
+	#
+	def pcopy(self, srcpath, destpath, artist, album, fileindex):
 		print("Copying...")
 		#		
 		#creating directory that will contain file
@@ -86,7 +89,7 @@ class filesystem(object):
 				self.create_folder(album_path)
 			#Copying file
 			try:
-				shutil.copy(srcpath, album_path)
+				self.copy(srcpath, album_path)
 				print("copied!")
 			except IOError as error0:
 				print("Copy failed!")
@@ -99,8 +102,10 @@ class filesystem(object):
 		return os.path.exists(folder_path)
 	def create_folder(self, folder_path):
 		os.makedirs(folder_path)
-	def move(self, path, destpath, artist, album):
-		print("Moving...")
+	def copy(self, srcpath, destpath):
+		shutil.copy(srcpath,destpath)
+	def move(self, path, destpath):
+		shutil.move(srcpath, destpath)
 	#
 	# Method for releasing all acquired resources, cleaning up, etc
 	#
