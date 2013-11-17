@@ -9,8 +9,8 @@ class song(object):
 			tag = f.read(3)
 			if (tag=="TAG"):
 				self.title = f.read(30)
-				self.artist = f.read(30)
-				self.album = f.read(30)
+				self.artist = self.__sanitize__(f.read(30))
+				self.album = self.__sanitize__(f.read(30))
 				self.year = f.read(4)
 			else:
 				self.title = "Unknown"
@@ -28,6 +28,8 @@ class song(object):
 		return self.artist
 	def get_album(self):
 		return self.album
+	def __sanitize__(self,name):
+		return name.replace("\x00","")
 class filesystem(object):
 	def __init__(self, topdir):
 		self.file_index = 0
@@ -75,7 +77,6 @@ class filesystem(object):
 						return
 			else:
 				#artist folder does not exist
-				os.makedirs(artist_path)
 				os.makedirs(album_path)
 			#Copying file
 			try:
