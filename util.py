@@ -65,7 +65,8 @@ class filesystem(object):
 		album_path = destpath+"/"+artist+"/"+album
 		try:
 			print("before 1st if")
-			if (os.path.exists(artist_path)):
+			print(artist_path)
+			if (os.path.exists(str(artist_path))==True):
 				print("after 1st if")
 				#Artist dir exists
 				if (os.path.exists(album_path)==False):
@@ -91,10 +92,12 @@ class filesystem(object):
 		except TypeError as error:
 			print("Copy failed!")
 			self.log.report_error(srcpath,error)
+			break;
 
 	def move(self, path, destpath, artist, album):
 		print("Moving...")
 	def get_filename(self,path):
+		
 		print("get")
 	#
 	# Method for releasing all acquired resources, cleaning up, etc
