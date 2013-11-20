@@ -1,5 +1,6 @@
 import sys
 import pyinotify
+from mmutil import *
 #
 # Class for handling events from inotify
 #
@@ -7,9 +8,12 @@ class EventHandler(pyinotify.ProcessEvent):
 	def __init__(self):
 		self.tmp = 0
 	def process_IN_CLOSE_WRITE(self,event):
-		print('write')
+		place(event.pathname)
 	def process_IN_MOVED_TO(self,event):
-		print('moved')	
+		place(event.pathname)
+def place(filepath):
+	song_classifier = classifier(filepath, True)
+	
 def main():
 	path = sys.argv[1]
 	print('MusikMan: watching '+path)
