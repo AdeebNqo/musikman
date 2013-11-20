@@ -80,9 +80,19 @@ class comparor(object):
 			num = 1.0 * num
 			self.similarity = num/length
 			return self.similarity*100
-def main():
-	print("Hello World")
-	com = comparor()
-	print(com.compare("Blackcoffee","Black Coffee,"))
-if __name__=="__main__":
-	main()
+#
+# The following classes are for assisting with
+# storing the generated folder
+#
+class folder(object):
+	def __init__(self,path):
+		self.path = path
+		self.subdirectories = []
+		#Retrieve subdirectories
+		#...
+	#
+	# Method for joing given path
+	# with current folder.
+	#
+	def join(self, path):
+		#...

@@ -30,7 +30,7 @@ class song(object):
 	def get_album(self):
 		return self.album
 	def __sanitize__(self,name):
-		return name.replace("\x00","")
+		return name.strip("\x00")
 	def __unknown__(self):
 		self.title = "Unknown"
 		self.artist = "Unknown"
@@ -90,12 +90,12 @@ class filesystem(object):
 			#Copying file
 			try:
 				self.copy(srcpath, album_path)
-				print("copied!")
+				#print("copied!")
 			except IOError as error0:
-				print("Copy failed!")
+				#print("Copy failed!")
 				self.log.report_error(srcpath, error0)
 		except TypeError as error:
-			print("Copy failed!")
+			#print("Copy failed!")
 			self.log.report_error(srcpath,error)
 
 	def file_exists(self, folder_path):
