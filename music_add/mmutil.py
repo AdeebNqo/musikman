@@ -1,4 +1,5 @@
 import os
+import shutil
 class song(object):
 	def __init__(self, path):
 		try:
@@ -43,10 +44,10 @@ class classifier(object):
 	# Method for classfying a song
 	# song_path : path to music file
 	# cache : boolean value for deciding to cache the song details
-	def classify(song_path, cache):
-		song = song(song_path)
-		artist = song.get_artist()
-		album = song.get_album()
+	def classify(self,song_path, cache):
+		currentsong = song(song_path)
+		artist = currentsong.get_artist()
+		album = currentsong.get_album()
 		if (cache):
 			self.artist = artist
 			self.album = album
@@ -82,3 +83,5 @@ class filesystem(object):
 		else:
 			#artist folder does not exist
 			self.create_folder(album_path)
+	def move(self, path, destpath):
+		shutil.move(srcpath, destpath)
