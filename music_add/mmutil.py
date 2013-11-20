@@ -87,3 +87,5 @@ class filesystem(object):
 			return True
 	def move(self, srcpath, destpath):
 		shutil.move(srcpath, destpath)
+	def create_folder(self, folder_path):
+		os.makedirs(folder_path)
