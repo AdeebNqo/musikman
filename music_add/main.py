@@ -32,10 +32,15 @@ def main():
 	notifier = pyinotify.Notifier(watch_manager, event_handler)
 	
 	watch_manager.add_watch(path, actions)
-	while True:
-		notifier.process_events()
-		if (notifier.check_events()):
-			notifier.read_events()
+	try:
+		while True:
+			notifier.process_events()
+			if (notifier.check_events()):
+				notifier.read_events()
+	except Exception as err:
+		notifier.stop()
+		print('\'unwatching\' '+path)
+		print(err)
 if __name__=='__main__':
 	main()
 		
