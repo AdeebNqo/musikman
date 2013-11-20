@@ -3,9 +3,19 @@ import pyinotify
 from mmutil import *
 from config import config
 
+from notifications import notification
+
 configuration = config()
 musicfolder = configuration.get('music folder').replace('\n','')
+notifications = configuration.get('notifications').replace('\n','')
+
 #
+#setting up notification system
+#
+if (notifications=='True'):
+	notif = notification()
+else:
+	notif = None
 # Class for handling events from inotify
 #
 class EventHandler(pyinotify.ProcessEvent):
@@ -25,7 +35,9 @@ def place(filepath):
 	print('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
 def main():
 	path = sys.argv[1]
-	print('musikman: watching '+path)
+	#print('musikman: watching '+path)
+	if (notification==True):
+		notif.notify('watching '+path)
 	event_handler = EventHandler()
 	watch_manager = pyinotify.WatchManager()
 	actions = pyinotify.IN_MOVED_TO | pyinotify.IN_CLOSE_WRITE | pyinotify.IN_CLOSE_NOWRITE
