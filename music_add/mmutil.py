@@ -54,7 +54,7 @@ class classifier(object):
 		else:
 			self.artist =None
 			self.album = None
-		path = music_folder+'/'+artist+'/'+album		
+		path = self.music_folder+'/'+artist+'/'+album		
 		return path
 	def get_cached_artist(self):
 		return self.artist
@@ -67,21 +67,23 @@ class classifier(object):
 class filesystem(object):
 	def __init__(self,topdir):
 		self.topdir = topdir
-	def file_xists(self,path):
-		return os.path.exists(folder_path)
+	def file_exists(self,path):
+		return os.path.exists(path)
 	def create_path(self, artist, album):
-		artist_path = topdir+"/"+artist
-		album_path = topdir+"/"+artist+"/"+album
+		artist_path = self.topdir+"/"+artist
+		album_path = self.topdir+"/"+artist+"/"+album
 		if (self.file_exists(artist_path)):
 				#Artist dir exists
 				if (self.file_exists(album_path)):
 					#album folder exists
-					return
+					return False
 				else:
 					#album folder does not exist
 					self.create_folder(album_path)
+					return True
 		else:
 			#artist folder does not exist
 			self.create_folder(album_path)
-	def move(self, path, destpath):
+			return True
+	def move(self, srcpath, destpath):
 		shutil.move(srcpath, destpath)

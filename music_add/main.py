@@ -4,7 +4,7 @@ from mmutil import *
 from config import config
 
 configuration = config()
-music_folder = configuration.get('music folder').replace('\n','')
+musicfolder = configuration.get('music folder').replace('\n','')
 #
 # Class for handling events from inotify
 #
@@ -16,13 +16,13 @@ class EventHandler(pyinotify.ProcessEvent):
 	def process_IN_MOVED_TO(self,event):
 		place(event.pathname)
 def place(filepath):
-	song_classifier = classifier(music_folder)
-	fs = filesystem(music_folder)
+	song_classifier = classifier(musicfolder)
+	fs = filesystem(musicfolder)
 	path = song_classifier.classify(filepath, True)
-	if not fs.file_exists(path):
-		fs.create_path(path)
+	if (fs.file_exists(path)==False):
+		fs.create_path(song_classifier.get_cached_artist(), song_classifier.get_cached_album())
 	fs.move(filepath, path)
-	print('placed '+song_classifier.get_cachedartist()+'\'s song in '+path)
+	print('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
 def main():
 	path = sys.argv[1]
 	print('musikman: watching '+path)
@@ -32,15 +32,10 @@ def main():
 	notifier = pyinotify.Notifier(watch_manager, event_handler)
 	
 	watch_manager.add_watch(path, actions)
-	try:
-		while True:
-			notifier.process_events()
-			if (notifier.check_events()):
-				notifier.read_events()
-	except Exception as err:
-		print('musikman: \'unwatching\' '+path)
-		notifier.stop()
-		print(err)
+	while True:
+		notifier.process_events()
+		if (notifier.check_events()):
+			notifier.read_events()
 if __name__=='__main__':
 	main()
 		
