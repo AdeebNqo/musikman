@@ -36,7 +36,8 @@ def place(filepath):
 def main():
 	path = sys.argv[1]
 	#print('musikman: watching '+path)
-	if (notification==True):
+	if (notifications=='True'):
+		print('sending notif...')
 		notif.notify('watching '+path)
 	event_handler = EventHandler()
 	watch_manager = pyinotify.WatchManager()

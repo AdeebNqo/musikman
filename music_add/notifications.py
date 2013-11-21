@@ -13,5 +13,5 @@ class notification:
 		self.title = "Music Management"
 	def notify(self, msg):
 		pynotify.init(self.title)
-		notif = pynotify.Notification("Hello World", 'Hello World', )
+		notif = pynotify.Notification(self.title, msg, )
 		notif.show()
