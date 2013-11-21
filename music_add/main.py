@@ -35,10 +35,10 @@ def place(filepath):
 	print('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
 def main():
 	path = sys.argv[1]
-	#print('musikman: watching '+path)
 	if (notifications=='True'):
-		print('sending notif...')
 		notif.notify('watching '+path)
+	else:
+		print('watching '+path)
 	event_handler = EventHandler()
 	watch_manager = pyinotify.WatchManager()
 	actions = pyinotify.IN_MOVED_TO | pyinotify.IN_CLOSE_WRITE | pyinotify.IN_CLOSE_NOWRITE
@@ -52,7 +52,10 @@ def main():
 				notifier.read_events()
 	except Exception as err:
 		notifier.stop()
-		print('\'unwatching\' '+path)
+		if (notifications=='True'):
+			notif.notify('un-watching '+path)
+		else:
+			print('un-watching '+path)
 		print(err)
 if __name__=='__main__':
 	main()
