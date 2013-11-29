@@ -13,14 +13,20 @@ import threading
 num = 0
 class numCancellor(threading.Thread):
 	def run(self):
+		global num
 		sleep(5000)
 		num = 0
 class user_notif(object):
 	def __init__(self):
-		num=0
+		self.thread_started = False
 	def can_notify(self):
+		global num
 		if (num<3):
 			return True
+		elif (self.thread_started==False):
+			mythread = numCancellor()
+			mythread.start()
 		return False
 	def notify(self):
+		global num
 		num=num+1

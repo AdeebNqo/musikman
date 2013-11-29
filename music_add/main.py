@@ -76,7 +76,7 @@ def main():
 			notifier.process_events()
 			if (notifier.check_events()):
 				notifier.read_events()
-	except Exception as err:
+	except Exception,err:
 		notifier.stop()
 		if (notifications=='True'):
 			notif.notify('un-watching '+path)
