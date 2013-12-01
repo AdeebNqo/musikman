@@ -1,3 +1,0 @@
-1. Need to test of added file is a music files before trying to classify it
-2. remove .gitignore file here and place it in root directory
-3. Need better error handling -- errrors kill the application completely
