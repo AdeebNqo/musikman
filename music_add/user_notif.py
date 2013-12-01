@@ -9,12 +9,12 @@
 #
 #
 import threading
-
+import time
 num = 0
 class numCancellor(threading.Thread):
 	def run(self):
 		global num
-		sleep(5000)
+		time.sleep(5000)
 		num = 0
 class user_notif(object):
 	def __init__(self):
