@@ -6,7 +6,7 @@ app = musicman
 
 obj = 
 
-aopt = -Wall #application compilation options
+aopt = -Wall -L/usr/include -lboost_system -lboost_program_options #application compilation options
 
 $(app): $(binf)/$(obj) $(srcf)/main.cpp
-	$(com) $(aopt) $(obj) $(srcf)/main.cpp -o $(app)
+	$(com) $(aopt) $(obj) -o $(app) $(srcf)/main.cpp
