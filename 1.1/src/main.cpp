@@ -7,7 +7,7 @@
 #include<boost/program_options.hpp>
 #include<iostream>
 #include<string>
-int main(int num_args, char** args){
+int main(int argc, char* argv[]){
 	using namespace boost::program_options;
 	/*
 
@@ -19,15 +19,15 @@ int main(int num_args, char** args){
 		watch, w - watch a directory
 		rwatch, r - watch a directory with its subdirectories 
 	*/
-	options_description opt_descr("Program options");
-	/*opt_descr.add_options() ("list,l","list watched directories")
-				("kill,k",po::value<int>(),"kill a process watching a dir")
-				("unwatch,u",po::value<std::string>(),"Stop watching a directory")
-				("watch,w",po::value<std::string>(),"watch a dorectory")
-				("rwatch,r",po::value<std::string>(),"watch dir and its sub-directories");
-	*/
-	/*variables_map vars;
-	store(po::parse_command_line(num_args, args, opt_descr), vars);
+	options_description opt_descr("Allowed options");
+	opt_descr.add_options() ("list,l","list watched directories")
+				("kill,k",value<int>(),"kill a process watching a dir")
+				("unwatch,u",value<std::string>(),"Stop watching a directory")
+				("watch,w",value<std::string>(),"watch a dorectory")
+				("rwatch,r",value<std::string>(),"watch dir and its sub-directories");
+	
+	variables_map vars;
+	store(parse_command_line(argc, argv, opt_descr), vars);
 	notify(vars);
 	
 	if (vars.count("list")){
@@ -44,6 +44,6 @@ int main(int num_args, char** args){
 	}
 	if (vars.count("rwatch")){
 		std::cout << "recursively watching dir" << std::endl;
-	}*/
+	}
 	return 0;
 }
