@@ -1,3 +1,5 @@
-1. Need to test of added file is a music files before trying to classify it
+1. Need to test of added file is a music file before trying to classify it
 2. remove .gitignore file here and place it in root directory
 3. Need better error handling -- errrors kill the application completely
+4. Remove whitespace from both artist and album field[Done]
+5. Need to sanitize path to artist and album, may contain '/' thus creating extra folder

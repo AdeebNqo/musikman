@@ -29,7 +29,17 @@ class song(object):
 	def get_album(self):
 		return self.album
 	def __sanitize__(self,name):
-		return name.strip("\x00")
+		while(name.count('\x00')>0):
+			name = name.replace('\x00','')
+			print(name.split())
+		splitname = name.split()
+		tmpname=''
+		for token in splitname:
+			if (tmpname==''):
+				tmpname = token
+			else:
+				tmpname=tmpname+' '+token
+		return tmpname
 	def __unknown__(self):
 		self.title = "Unknown"
 		self.artist = "Unknown"

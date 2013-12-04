@@ -39,22 +39,34 @@ class EventHandler(pyinotify.ProcessEvent):
 def ismusicfile(filepath):
 	if filepath.endswith('.mp3'):
 		return True
+	elif filepath.endswith('.wma'):
+		return True
+	print('ignored '+filepath)
 	return False
 #
 # Method for placing, that is, moving a file to it's allocated folder on the music folder
 #
 def place(filepath):
+	print('processing '+filepath)
 	if ismusicfile(filepath):
 		song_classifier = classifier(musicfolder)
 		fs = filesystem(musicfolder)
 		path = song_classifier.classify(filepath, True)
 		if (fs.file_exists(path)==False):
 			fs.create_path(song_classifier.get_cached_artist(), song_classifier.get_cached_album())
-		fs.move(filepath, path)
-		print('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
-		if (unotif.can_notify()):
-			unotif.notify()
-			notif.notify('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
+		try:
+			fs.move(filepath, path)
+			print('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
+			if (unotif.can_notify()):
+				unotif.notify()
+				notif.notify('placed '+song_classifier.get_cached_artist()+'\'s song in '+path)
+		except shutil.Error,err:
+			if (unotif.can_notify()):
+				unotif.notify()
+				notif.notify('Duplicate file ignored')
+			else:
+				print('Duplicate file ignored')
+			
 			
 def main():
 	path = sys.argv[1]
