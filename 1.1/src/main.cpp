@@ -35,15 +35,19 @@ int main(int argc, char* argv[]){
 	}
 	if (vars.count("kill")){
 		std::cout << "killing process" << std::endl;
+		int pid = vars["kill"].as<int>();
 	}
 	if (vars.count("unwatch")){
 		std::cout << "unwatching dir" << std::endl;
+		std::string directory = vars["unwatch"].as<std::string>();
 	}
 	if (vars.count("watch")){
 		std::cout << "watching dir" << std::endl;
+		std::string directory = vars["watch"].as<std::string>();
 	}
 	if (vars.count("rwatch")){
 		std::cout << "recursively watching dir" << std::endl;
+		std::string directory = vars["rwatch"].as<std::string>();
 	}
 	return 0;
 }
