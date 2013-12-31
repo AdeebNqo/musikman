@@ -9,6 +9,7 @@ namespace music_man{
 
 	metadata::metadata(char* path){		
 		infile = new std::ifstream(path);
+		infile->seek(-128)
 	};
 	metadata::~metadata(){
 		delete[] artist;
