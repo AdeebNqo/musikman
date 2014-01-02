@@ -18,12 +18,7 @@ namespace music_man{
 		}
 		std::reverse(&tmp[0], &tmp[127]);	
 		
-		//printing out the reserved array
-		for (int i=0; i<128; ++i){
-			std::cout << tmp[i];
-		}
-		std::cout << std::endl;
-
+		//reading the title
 		title = new char[30];
 		int j=0;
 		for (int i=3; i<34; ++i, ++j){
@@ -32,16 +27,14 @@ namespace music_man{
 	};
 	metadata::~metadata(){
 		delete[] title;
-		//delete[] artist;
-		//delete[] album;
+		delete[] artist;
+		delete[] album;
 		delete infile;
 	};
 	char* metadata::get_artist(){
-		char * hello = new char[6];		
-		return hello;
+		return artist;
 	};
 	char* metadata::get_album(){
-		char * world = new char[6];
-		return world;
+		return album;
 	};
 }
