@@ -16,18 +16,24 @@ namespace music_man{
 		while(!infile->eof()){
 			infile->read(tmp,128);
 		}
-		std::reverse(&tmp[0], &tmp[127]);
+		std::reverse(&tmp[0], &tmp[127]);	
 		
+		//printing out the reserved array
 		for (int i=0; i<128; ++i){
 			std::cout << tmp[i];
-		}	
-	
-		artist = new char[10];
-		album = new char[10];
+		}
+		std::cout << std::endl;
+
+		title = new char[30];
+		int j=0;
+		for (int i=3; i<34; ++i, ++j){
+			title[j] = tmp[34-i];
+		}
 	};
 	metadata::~metadata(){
-		delete[] artist;
-		delete[] album;
+		delete[] title;
+		//delete[] artist;
+		//delete[] album;
 		delete infile;
 	};
 	char* metadata::get_artist(){

@@ -20,6 +20,7 @@ namespace music_man{
 		private:
 			char* artist;
 			char* album;
+			char* title;
 			std::ifstream* infile;
 	};
 
