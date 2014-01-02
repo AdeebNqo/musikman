@@ -44,6 +44,7 @@ int main(int argc, char* argv[]){
 	if (vars.count("watch")){
 		std::cout << "watching dir" << std::endl;
 		std::string directory = vars["watch"].as<std::string>();
+		char * tmp = directory.c_str()
 	}
 	if (vars.count("rwatch")){
 		std::cout << "recursively watching dir" << std::endl;
