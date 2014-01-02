@@ -6,19 +6,24 @@ For license info, see LICENSE
 */
 #include "../include/metadata.hpp"
 #include<iostream>
+#include<algorithm>
 namespace music_man{
 
 	metadata::metadata(char* path){		
+		std::cout << "metadata created" << std::endl;
 		infile = new std::ifstream(path);
+		char* tmp = new char[128];
 		while(!infile->eof()){
-			char* tmp = new char[10];
-			infile->read(tmp,10);
-				for (int i=0; i<10; ++i){
-					std::cout << tmp[i] << " ";
-				}
-				std::cout << std::endl;
-			delete[] tmp;
+			infile->read(tmp,128);
 		}
+		std::reverse(&tmp[0], &tmp[127]);
+		
+		for (int i=0; i<128; ++i){
+			std::cout << tmp[i];
+		}	
+	
+		artist = new char[10];
+		album = new char[10];
 	};
 	metadata::~metadata(){
 		delete[] artist;

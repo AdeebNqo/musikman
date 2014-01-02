@@ -7,8 +7,10 @@
 #include<boost/program_options.hpp>
 #include<iostream>
 #include<string>
+#include "../include/metadata.hpp"
 int main(int argc, char* argv[]){
 	using namespace boost::program_options;
+	using namespace music_man;
 	/*
 
 	Adding the cmdline options
@@ -44,7 +46,9 @@ int main(int argc, char* argv[]){
 	if (vars.count("watch")){
 		std::cout << "watching dir" << std::endl;
 		std::string directory = vars["watch"].as<std::string>();
-		char * tmp = directory.c_str()
+		std::cout << "directory: "<< directory << std::endl;
+		char * tmp = const_cast<char*>( directory.c_str() );
+		metadata song(tmp);
 	}
 	if (vars.count("rwatch")){
 		std::cout << "recursively watching dir" << std::endl;
