@@ -2,7 +2,10 @@ from util import filesystem
 from util import song
 import os
 def main():
-	
+	while(True):
+		print("\t/--Options--/")
+		print()
+		print("Enter cmd:")
 	#Creating temp directory to contain music
 	if (os.path.exists("/tmp/.musikMan")):
 		try:
