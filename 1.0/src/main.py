@@ -16,6 +16,7 @@ from notifications import notification
 configuration = config() #object for reading saved configuration
 musicfolder = configuration.get('music folder').replace('\n','') 
 notifications = configuration.get('notifications').replace('\n','')
+watchedfolders = configuration.get('watched folders').split(':')
 
 unotif = user_notif() #object for controlling notification of moved music file
 
@@ -75,6 +76,9 @@ def main():
 		notif.notify('watching '+path)
 	else:
 		print('watching '+path)
+	#saving new folder to watch
+ 	watchedfolders.append(path)
+
 	#object for handling the events sent by the actions which will be monitored
 	event_handler = EventHandler()
 	watch_manager = pyinotify.WatchManager()
