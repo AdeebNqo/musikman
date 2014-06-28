@@ -71,6 +71,10 @@ def place(filepath):
 			
 def main():
 	path = sys.argv[1]
+
+	wait= sys.argv[2] #var to determine whether to wait for
+			  #events in folder or search for music
+			  #1 for wait, 0 for searching
 	#Notifying user that chosen folder is being watched
 	if (notifications=='True'):
 		notif.notify('watching '+path)
