@@ -91,7 +91,7 @@ def main():
 		if (not os.path.isabs(folder)):
 			folder = os.path.abspath(folder)
 		tmp = music_manager('/tmp/tmp.pid') #deamon will not be started
-		print('processing {}...'.format(folder))
+		print('processing {}'.format(folder))
 		#iterating through all files in folder
 		filestore = []
 		for root, _, files in os.walk(folder):
@@ -107,7 +107,14 @@ def main():
 				tmp.place(fullpath)
 			Sum=Sum+1
 			percentage = 100 * float(Sum)/float(numfiles)
-		print('\ndone')
+		print('\nfinishing up')
+		for folderpath, dirnames, files in os.walk(folder):
+			try:
+				os.rmdir(folderpath)
+			except OSError:
+				pass
+		print('done!')
+		
 		
 	#processing new passed folders if there are any
 	if (args['folder']!=None):
