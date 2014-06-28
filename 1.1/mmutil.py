@@ -31,7 +31,6 @@ class song(object):
 	def __sanitize__(self,name):
 		while(name.count('\x00')>0):
 			name = name.replace('\x00','')
-			print(name.split())
 		splitname = name.split()
 		tmpname=''
 		for token in splitname:
@@ -75,6 +74,7 @@ class classifier(object):
 #Class for dealing with the file system
 #
 class filesystem(object):
+	#topdir is the music folder
 	def __init__(self,topdir):
 		self.topdir = topdir
 	def file_exists(self,path):

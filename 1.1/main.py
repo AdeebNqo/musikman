@@ -12,7 +12,9 @@ from mmutil import *
 import argparse
 from os.path import expanduser
 import os.path
+from os import remove
 
+homepath = ''
 watchedfolders = []
 
 #class to listen to folders
@@ -45,21 +47,27 @@ class music_manager(daemon, pyinotify.ProcessEvent):
 		return False
 	def place(self,filepath):
 		if (self.ismusicfile(filepath)):
-			song_classifier = classifier(musicfolder)
-			fs = filesystem(musicfolder)
+			song_classifier = classifier(homepath+"/Music")
+			fs = filesystem(homepath+"/Music")
 			path = song_classifier.classify(filepath, True)
 			if (fs.file_exists(path)==False):
 				fs.create_path(song_classifier.get_cached_artist(), song_classifier.get_cached_album())
-			try:
-				fs.move(filepath, path)
-				return True
-			except shutil.Error,err:
-				return False
-
+				try:
+					fs.move(filepath, path)
+					if (os.path.isfile(filepath)):
+						remove(filepath)
+					return True
+				except shutil.Error,err:
+					return False
+			else:
+				if (os.path.isfile(filepath)):
+					remove(filepath)
 def main():
 
 	#reading saved folders which need to be watched
-	configpath = expanduser("~")+'/.musicman/config'
+	global homepath
+	homepath = expanduser("~")
+	configpath = homepath+'/.musicman/config'
 	if not os.path.exists(os.path.dirname(configpath)):
 		os.makedirs(os.path.dirname(configpath))
 	if (not os.path.isfile(configpath)):
@@ -81,13 +89,22 @@ def main():
 		if (not os.path.isabs(folder)):
 			folder = os.path.abspath(folder)
 		tmp = music_manager('/tmp/tmp.pid') #deamon will not be started
-		print('processing...')
+		print('processing {}...'.format(folder))
 		#iterating through all files in folder
+		filestore = []
 		for root, _, files in os.walk(folder):
-		    for f in files:
+			filestore = filestore + files
+		numfiles = len(filestore)
+		Sum = 0
+		percentage = 0
+		for f in filestore:
+			sys.stdout.write("\r%d%%" %percentage)
+    			sys.stdout.flush()
 			fullpath = os.path.join(root, f)
 			if tmp.ismusicfile(fullpath):
 				tmp.place(fullpath)
+			Sum=Sum+1
+			percentage = 100 * float(Sum)/float(numfiles)
 		print('done')
 		
 	#processing new passed folders if there are any
