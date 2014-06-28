@@ -1,0 +1,4 @@
+TODO:
+1. ismusicfile cannot detect certain filenames, determine which and why
+2. ismusicfile does not work properly, need another method for determing
+whether file is a music file

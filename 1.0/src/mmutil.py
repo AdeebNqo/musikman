@@ -31,7 +31,6 @@ class song(object):
 	def __sanitize__(self,name):
 		while(name.count('\x00')>0):
 			name = name.replace('\x00','')
-			print(name.split())
 		splitname = name.split()
 		tmpname=''
 		for token in splitname:

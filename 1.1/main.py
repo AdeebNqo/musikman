@@ -47,6 +47,7 @@ class music_manager(daemon, pyinotify.ProcessEvent):
 		return False
 	def place(self,filepath):
 		if (self.ismusicfile(filepath)):
+			print(filepath)
 			song_classifier = classifier(homepath+"/Music")
 			fs = filesystem(homepath+"/Music")
 			path = song_classifier.classify(filepath, True)
@@ -58,6 +59,7 @@ class music_manager(daemon, pyinotify.ProcessEvent):
 						remove(filepath)
 					return True
 				except shutil.Error,err:
+					print(err)
 					return False
 			else:
 				if (os.path.isfile(filepath)):
@@ -105,7 +107,7 @@ def main():
 				tmp.place(fullpath)
 			Sum=Sum+1
 			percentage = 100 * float(Sum)/float(numfiles)
-		print('done')
+		print('\ndone')
 		
 	#processing new passed folders if there are any
 	if (args['folder']!=None):
