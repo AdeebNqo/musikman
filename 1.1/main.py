@@ -4,7 +4,7 @@
 #
 #
 import sys, time
-from daemon3x import daemon 
+from daemon3x import daemon
 
 import pyinotify
 import subprocess
@@ -13,6 +13,7 @@ import argparse
 from os.path import expanduser
 import os.path
 from os import remove
+import traceback
 
 homepath = ''
 watchedfolders = []
@@ -47,7 +48,6 @@ class music_manager(daemon, pyinotify.ProcessEvent):
 		return False
 	def place(self,filepath):
 		if (self.ismusicfile(filepath)):
-			print(filepath)
 			song_classifier = classifier(homepath+"/Music")
 			fs = filesystem(homepath+"/Music")
 			path = song_classifier.classify(filepath, True)
@@ -59,7 +59,7 @@ class music_manager(daemon, pyinotify.ProcessEvent):
 						remove(filepath)
 					return True
 				except shutil.Error,err:
-					print(err)
+					traceback.print_exc()
 					return False
 			else:
 				if (os.path.isfile(filepath)):
@@ -95,7 +95,11 @@ def main():
 		#iterating through all files in folder
 		filestore = []
 		for root, _, files in os.walk(folder):
-			filestore = filestore + files
+                        for _file in files:
+                                if root!=folder:
+                                        filestore.append('/'.join([root,_file]))
+                                else:
+                                        filestore.append(_file)
 		numfiles = len(filestore)
 		Sum = 0
 		percentage = 0
@@ -112,10 +116,11 @@ def main():
 			try:
 				os.rmdir(folderpath)
 			except OSError:
+                                #traceback.print_exc()
 				pass
 		print('done!')
-		
-		
+
+
 	#processing new passed folders if there are any
 	if (args['folder']!=None):
 		newfolders = args['folder']
